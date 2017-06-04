@@ -1,0 +1,33 @@
+{
+  "name": "graphx",
+  "version": "0.0.0",
+  "description": "Visualize and analyse GraphQL query results in a true Graph.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolasdao/graphx.git"
+  },
+  "keywords": [
+    "graphql",
+    "graph",
+    "d3",
+    "visualize",
+    "neap"
+  ],
+  "author": "Nicolas Dao",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/nicolasdao/graphx/issues"
+  },
+  "homepage": "https://github.com/nicolasdao/graphx#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "standard-version": "^4.0.0"
+  }
+}
