@@ -4,7 +4,8 @@
   "description": "Visualize and analyse GraphQL query results in a true Graph.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
