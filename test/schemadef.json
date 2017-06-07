@@ -1,0 +1,2843 @@
+[{
+	"type": "TYPE",
+	"name": "PagingQuery",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "first",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int",
+	            "isGen": false,
+	            "name": "Int"
+	        }
+	    },
+	    "value": "first: Int"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "UpdateOutput",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "count",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int",
+	            "isGen": false,
+	            "name": "Int"
+	        }
+	    },
+	    "value": "count: Int"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "Paged<T>",
+	"metadata": null,
+	"genericType": "T",
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "data",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "[T]",
+	            "isGen": false,
+	            "name": "[T]"
+	        }
+	    },
+	    "value": "data: [T]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "Node",
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "Brand",
+	"genericType": null,
+	"originalBlockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "type",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "BrandType!",
+	            "isGen": false,
+	            "name": "BrandType!"
+	        }
+	    },
+	    "value": "type: BrandType!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "website",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "website: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "twitter",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "twitter: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "posts",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((brand, posts) => '<-[ABOUT]-(posts.data)')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "posts(where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput): Paged<Post>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Brand"
+	            }
+	        },
+	        "params": "where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<Post>",
+	            "isGen": true,
+	            "name": "PagedPost"
+	        }
+	    },
+	    "value": "posts(where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput): PagedPost"
+	}],
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"implements": [],
+	"inherits": {
+	    "type": "TYPE",
+	    "name": "Node",
+	    "metadata": {
+	        "name": "node",
+	        "body": "",
+	        "schemaType": "TYPE",
+	        "schemaName": "Node",
+	        "parent": null
+	    },
+	    "genericType": null,
+	    "blockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "id",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "ID!",
+	                "isGen": false,
+	                "name": "ID!"
+	            }
+	        },
+	        "value": "id: ID!"
+	    }],
+	    "inherits": null,
+	    "implements": null
+	},
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "type",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "BrandType!",
+	            "isGen": false,
+	            "name": "BrandType!"
+	        }
+	    },
+	    "value": "type: BrandType!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "website",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "website: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "twitter",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "twitter: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "posts",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((brand, posts) => '<-[ABOUT]-(posts.data)')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "posts(where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput): Paged<Post>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Brand"
+	            }
+	        },
+	        "params": "where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<Post>",
+	            "isGen": true,
+	            "name": "PagedPost"
+	        }
+	    },
+	    "value": "posts(where: PostQueryWhere, orderBy: OrderByEnum, page: PagingInput): PagedPost"
+	}]
+	}, {
+	"type": "TYPE",
+	"name": "DataImportMessage",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "message",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "message: String!"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "Post",
+	"genericType": null,
+	"originalBlockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "text",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "text: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "ratings",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRatingStats",
+	            "isGen": false,
+	            "name": "PostRatingStats"
+	        }
+	    },
+	    "value": "ratings: PostRatingStats"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "brand",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('-[ABOUT]->')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "brand: Brand",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "Brand",
+	            "isGen": false,
+	            "name": "Brand"
+	        }
+	    },
+	    "value": "brand: Brand"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "author",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('<-[CREATED]-')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "author: User",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "User",
+	            "isGen": false,
+	            "name": "User"
+	        }
+	    },
+	    "value": "author: User"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "users",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((post, users) => '<-[RATED(%))]-(users.data.map(u => u.rating)')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): Paged<UserWithPostRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": "have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<UserWithPostRating>",
+	            "isGen": true,
+	            "name": "PagedUserWithPostRating"
+	        }
+	    },
+	    "value": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedUserWithPostRating"
+	}],
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"implements": [],
+	"inherits": {
+	    "type": "TYPE",
+	    "name": "Node",
+	    "metadata": {
+	        "name": "node",
+	        "body": "",
+	        "schemaType": "TYPE",
+	        "schemaName": "Node",
+	        "parent": null
+	    },
+	    "genericType": null,
+	    "blockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "id",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "ID!",
+	                "isGen": false,
+	                "name": "ID!"
+	            }
+	        },
+	        "value": "id: ID!"
+	    }],
+	    "inherits": null,
+	    "implements": null
+	},
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "text",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "text: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "ratings",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRatingStats",
+	            "isGen": false,
+	            "name": "PostRatingStats"
+	        }
+	    },
+	    "value": "ratings: PostRatingStats"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "brand",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('-[ABOUT]->')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "brand: Brand",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "Brand",
+	            "isGen": false,
+	            "name": "Brand"
+	        }
+	    },
+	    "value": "brand: Brand"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "author",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('<-[CREATED]-')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "author: User",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "User",
+	            "isGen": false,
+	            "name": "User"
+	        }
+	    },
+	    "value": "author: User"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "users",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((post, users) => '<-[RATED(%))]-(users.data.map(u => u.rating)')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): Paged<UserWithPostRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": "have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<UserWithPostRating>",
+	            "isGen": true,
+	            "name": "PagedUserWithPostRating"
+	        }
+	    },
+	    "value": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedUserWithPostRating"
+	}]
+	}, {
+	"type": "TYPE",
+	"name": "PostUserRating",
+	"genericType": null,
+	"originalBlockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "rating",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating!",
+	            "isGen": false,
+	            "name": "PostRating!"
+	        }
+	    },
+	    "value": "rating: PostRating!"
+	}],
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"implements": [],
+	"inherits": {
+	    "type": "TYPE",
+	    "name": "Post",
+	    "genericType": null,
+	    "originalBlockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "name",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String!",
+	                "isGen": false,
+	                "name": "String!"
+	            }
+	        },
+	        "value": "name: String!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "text",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "text: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "ratings",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "PostRatingStats",
+	                "isGen": false,
+	                "name": "PostRatingStats"
+	            }
+	        },
+	        "value": "ratings: PostRatingStats"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "brand",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "('-[ABOUT]->')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "brand: Brand",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": null,
+	            "result": {
+	                "originName": "Brand",
+	                "isGen": false,
+	                "name": "Brand"
+	            }
+	        },
+	        "value": "brand: Brand"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "author",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "('<-[CREATED]-')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "author: User",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": null,
+	            "result": {
+	                "originName": "User",
+	                "isGen": false,
+	                "name": "User"
+	            }
+	        },
+	        "value": "author: User"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "users",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "((post, users) => '<-[RATED(%))]-(users.data.map(u => u.rating)')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): Paged<UserWithPostRating>",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": "have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	            "result": {
+	                "originName": "Paged<UserWithPostRating>",
+	                "isGen": true,
+	                "name": "PagedUserWithPostRating"
+	            }
+	        },
+	        "value": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedUserWithPostRating"
+	    }],
+	    "metadata": {
+	        "name": "node",
+	        "body": "",
+	        "schemaType": "TYPE",
+	        "schemaName": "Node",
+	        "parent": null
+	    },
+	    "implements": [],
+	    "inherits": {
+	        "type": "TYPE",
+	        "name": "Node",
+	        "metadata": {
+	            "name": "node",
+	            "body": "",
+	            "schemaType": "TYPE",
+	            "schemaName": "Node",
+	            "parent": null
+	        },
+	        "genericType": null,
+	        "blockProps": [{
+	            "comments": "",
+	            "details": {
+	                "name": "id",
+	                "metadata": null,
+	                "params": null,
+	                "result": {
+	                    "originName": "ID!",
+	                    "isGen": false,
+	                    "name": "ID!"
+	                }
+	            },
+	            "value": "id: ID!"
+	        }],
+	        "inherits": null,
+	        "implements": null
+	    },
+	    "blockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "id",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "ID!",
+	                "isGen": false,
+	                "name": "ID!"
+	            }
+	        },
+	        "value": "id: ID!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "name",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String!",
+	                "isGen": false,
+	                "name": "String!"
+	            }
+	        },
+	        "value": "name: String!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "text",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "text: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "ratings",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "PostRatingStats",
+	                "isGen": false,
+	                "name": "PostRatingStats"
+	            }
+	        },
+	        "value": "ratings: PostRatingStats"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "brand",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "('-[ABOUT]->')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "brand: Brand",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": null,
+	            "result": {
+	                "originName": "Brand",
+	                "isGen": false,
+	                "name": "Brand"
+	            }
+	        },
+	        "value": "brand: Brand"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "author",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "('<-[CREATED]-')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "author: User",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": null,
+	            "result": {
+	                "originName": "User",
+	                "isGen": false,
+	                "name": "User"
+	            }
+	        },
+	        "value": "author: User"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "users",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "((post, users) => '<-[RATED(%))]-(users.data.map(u => u.rating)')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): Paged<UserWithPostRating>",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "Post"
+	                }
+	            },
+	            "params": "have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	            "result": {
+	                "originName": "Paged<UserWithPostRating>",
+	                "isGen": true,
+	                "name": "PagedUserWithPostRating"
+	            }
+	        },
+	        "value": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedUserWithPostRating"
+	    }]
+	},
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "text",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "text: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "ratings",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRatingStats",
+	            "isGen": false,
+	            "name": "PostRatingStats"
+	        }
+	    },
+	    "value": "ratings: PostRatingStats"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "brand",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('-[ABOUT]->')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "brand: Brand",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "Brand",
+	            "isGen": false,
+	            "name": "Brand"
+	        }
+	    },
+	    "value": "brand: Brand"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "author",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "('<-[CREATED]-')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "author: User",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": null,
+	        "result": {
+	            "originName": "User",
+	            "isGen": false,
+	            "name": "User"
+	        }
+	    },
+	    "value": "author: User"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "users",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((post, users) => '<-[RATED(%))]-(users.data.map(u => u.rating)')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): Paged<UserWithPostRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "Post"
+	            }
+	        },
+	        "params": "have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<UserWithPostRating>",
+	            "isGen": true,
+	            "name": "PagedUserWithPostRating"
+	        }
+	    },
+	    "value": "users(have: PostUserQueryAction, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedUserWithPostRating"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "rating",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating!",
+	            "isGen": false,
+	            "name": "PostRating!"
+	        }
+	    },
+	    "value": "rating: PostRating!"
+	}]
+	}, {
+	"type": "TYPE",
+	"name": "PostRatingStats",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "love",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int!",
+	            "isGen": false,
+	            "name": "Int!"
+	        }
+	    },
+	    "value": "love: Int!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "like",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int!",
+	            "isGen": false,
+	            "name": "Int!"
+	        }
+	    },
+	    "value": "like: Int!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "neutral",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int!",
+	            "isGen": false,
+	            "name": "Int!"
+	        }
+	    },
+	    "value": "neutral: Int!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "dislike",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int!",
+	            "isGen": false,
+	            "name": "Int!"
+	        }
+	    },
+	    "value": "dislike: Int!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "hate",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int!",
+	            "isGen": false,
+	            "name": "Int!"
+	        }
+	    },
+	    "value": "hate: Int!"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "User",
+	"genericType": null,
+	"originalBlockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "username",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "username: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "firstname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "firstname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "lastname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "lastname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "email",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "email: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "posts",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((user, posts, {have={}}) => have.created ? '-[CREATED]->(posts.data)' : '-[RATED(%)]->(posts.data.map(p => p.rating))')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): Paged<PostUserRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "User"
+	            }
+	        },
+	        "params": "have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<PostUserRating>",
+	            "isGen": true,
+	            "name": "PagedPostUserRating"
+	        }
+	    },
+	    "value": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): PagedPostUserRating"
+	}],
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"implements": [],
+	"inherits": {
+	    "type": "TYPE",
+	    "name": "Node",
+	    "metadata": {
+	        "name": "node",
+	        "body": "",
+	        "schemaType": "TYPE",
+	        "schemaName": "Node",
+	        "parent": null
+	    },
+	    "genericType": null,
+	    "blockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "id",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "ID!",
+	                "isGen": false,
+	                "name": "ID!"
+	            }
+	        },
+	        "value": "id: ID!"
+	    }],
+	    "inherits": null,
+	    "implements": null
+	},
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "username",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "username: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "firstname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "firstname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "lastname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "lastname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "email",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "email: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "posts",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((user, posts, {have={}}) => have.created ? '-[CREATED]->(posts.data)' : '-[RATED(%)]->(posts.data.map(p => p.rating))')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): Paged<PostUserRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "User"
+	            }
+	        },
+	        "params": "have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<PostUserRating>",
+	            "isGen": true,
+	            "name": "PagedPostUserRating"
+	        }
+	    },
+	    "value": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): PagedPostUserRating"
+	}]
+	}, {
+	"type": "TYPE",
+	"name": "UserWithPostRating",
+	"genericType": null,
+	"originalBlockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "rating",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating!",
+	            "isGen": false,
+	            "name": "PostRating!"
+	        }
+	    },
+	    "value": "rating: PostRating!"
+	}],
+	"metadata": {
+	    "name": "node",
+	    "body": "",
+	    "schemaType": "TYPE",
+	    "schemaName": "Node",
+	    "parent": null
+	},
+	"implements": [],
+	"inherits": {
+	    "type": "TYPE",
+	    "name": "User",
+	    "genericType": null,
+	    "originalBlockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "username",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String!",
+	                "isGen": false,
+	                "name": "String!"
+	            }
+	        },
+	        "value": "username: String!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "firstname",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "firstname: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "lastname",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "lastname: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "email",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "email: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "posts",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "((user, posts, {have={}}) => have.created ? '-[CREATED]->(posts.data)' : '-[RATED(%)]->(posts.data.map(p => p.rating))')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): Paged<PostUserRating>",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "User"
+	                }
+	            },
+	            "params": "have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput",
+	            "result": {
+	                "originName": "Paged<PostUserRating>",
+	                "isGen": true,
+	                "name": "PagedPostUserRating"
+	            }
+	        },
+	        "value": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): PagedPostUserRating"
+	    }],
+	    "metadata": {
+	        "name": "node",
+	        "body": "",
+	        "schemaType": "TYPE",
+	        "schemaName": "Node",
+	        "parent": null
+	    },
+	    "implements": [],
+	    "inherits": {
+	        "type": "TYPE",
+	        "name": "Node",
+	        "metadata": {
+	            "name": "node",
+	            "body": "",
+	            "schemaType": "TYPE",
+	            "schemaName": "Node",
+	            "parent": null
+	        },
+	        "genericType": null,
+	        "blockProps": [{
+	            "comments": "",
+	            "details": {
+	                "name": "id",
+	                "metadata": null,
+	                "params": null,
+	                "result": {
+	                    "originName": "ID!",
+	                    "isGen": false,
+	                    "name": "ID!"
+	                }
+	            },
+	            "value": "id: ID!"
+	        }],
+	        "inherits": null,
+	        "implements": null
+	    },
+	    "blockProps": [{
+	        "comments": "",
+	        "details": {
+	            "name": "id",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "ID!",
+	                "isGen": false,
+	                "name": "ID!"
+	            }
+	        },
+	        "value": "id: ID!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "username",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String!",
+	                "isGen": false,
+	                "name": "String!"
+	            }
+	        },
+	        "value": "username: String!"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "firstname",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "firstname: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "lastname",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "lastname: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "email",
+	            "metadata": null,
+	            "params": null,
+	            "result": {
+	                "originName": "String",
+	                "isGen": false,
+	                "name": "String"
+	            }
+	        },
+	        "value": "email: String"
+	    }, {
+	        "comments": "",
+	        "details": {
+	            "name": "posts",
+	            "metadata": {
+	                "name": "edge",
+	                "body": "((user, posts, {have={}}) => have.created ? '-[CREATED]->(posts.data)' : '-[RATED(%)]->(posts.data.map(p => p.rating))')",
+	                "schemaType": "PROPERTY",
+	                "schemaName": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): Paged<PostUserRating>",
+	                "parent": {
+	                    "type": "TYPE",
+	                    "name": "User"
+	                }
+	            },
+	            "params": "have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput",
+	            "result": {
+	                "originName": "Paged<PostUserRating>",
+	                "isGen": true,
+	                "name": "PagedPostUserRating"
+	            }
+	        },
+	        "value": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): PagedPostUserRating"
+	    }]
+	},
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "id: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "username",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "username: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "firstname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "firstname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "lastname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "lastname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "email",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "email: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "posts",
+	        "metadata": {
+	            "name": "edge",
+	            "body": "((user, posts, {have={}}) => have.created ? '-[CREATED]->(posts.data)' : '-[RATED(%)]->(posts.data.map(p => p.rating))')",
+	            "schemaType": "PROPERTY",
+	            "schemaName": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): Paged<PostUserRating>",
+	            "parent": {
+	                "type": "TYPE",
+	                "name": "User"
+	            }
+	        },
+	        "params": "have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<PostUserRating>",
+	            "isGen": true,
+	            "name": "PagedPostUserRating"
+	        }
+	    },
+	    "value": "posts(have: UserPostQueryAction!, orderBy: UserPostQueryOrderBy, page: PagingInput): PagedPostUserRating"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "rating",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating!",
+	            "isGen": false,
+	            "name": "PostRating!"
+	        }
+	    },
+	    "value": "rating: PostRating!"
+	}]
+	}, {
+	"type": "TYPE",
+	"name": "Query",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "# ### Gets a brand using its id.\n    #\n    # _Arguments_\n    # - **id**: Brand's id",
+	    "details": {
+	        "name": "brands",
+	        "metadata": null,
+	        "params": "where: BrandQueryWith, orderBy: BrandQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<Brand>",
+	            "isGen": true,
+	            "name": "PagedBrand"
+	        }
+	    },
+	    "value": "brands(where: BrandQueryWith, orderBy: BrandQueryOrderBy, page: PagingInput): PagedBrand"
+	}, {
+	    "comments": "# ### Gets posts for that brand\n    #\n    # _Arguments_\n    # - **id**: ID of the object",
+	    "details": {
+	        "name": "posts",
+	        "metadata": null,
+	        "params": "about: PostQueryAbout, where: PostQueryWhere, orderBy: PostUserQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<Post>",
+	            "isGen": true,
+	            "name": "PagedPost"
+	        }
+	    },
+	    "value": "posts(about: PostQueryAbout, where: PostQueryWhere, orderBy: PostUserQueryOrderBy, page: PagingInput): PagedPost"
+	}, {
+	    "comments": "# ### Searches for users.\n    #\n    # _Arguments_\n    # - **id**: ID of the object",
+	    "details": {
+	        "name": "users",
+	        "metadata": null,
+	        "params": "where: UserQueryWith, orderBy: UserQueryOrderBy, page: PagingInput",
+	        "result": {
+	            "originName": "Paged<User>",
+	            "isGen": true,
+	            "name": "PagedUser"
+	        }
+	    },
+	    "value": "users(where: UserQueryWith, orderBy: UserQueryOrderBy, page: PagingInput): PagedUser"
+	}],
+	"inherits": null,
+	"implements": null,
+	"comments": "# ## Welcome to Super GraphQl API (beta)\n# This API is a [Graphql API](http://graphql.org/learn/). This API is in beta mode, and functionalities\n# are being developed on a daily basis. We do not recommend to use this API in production, as it may change.\n#\n#\n# ©2017 Your Company, Inc."
+	}, {
+	"type": "TYPE",
+	"name": "Mutation",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "# ### Creates a new brand.\n    #\n    # _Arguments_\n    # - **input**: Brand's details",
+	    "details": {
+	        "name": "brandCreate",
+	        "metadata": null,
+	        "params": "input: NewBrandInput!",
+	        "result": {
+	            "originName": "Brand",
+	            "isGen": false,
+	            "name": "Brand"
+	        }
+	    },
+	    "value": "brandCreate(input: NewBrandInput!): Brand"
+	}, {
+	    "comments": "# ### Update a brand'name.\n    #\n    # _Arguments_\n    # - **id**: Brand's id\n    # - **name**: Brand's new name",
+	    "details": {
+	        "name": "brandUpdateName",
+	        "metadata": null,
+	        "params": "id: ID!, name: String!",
+	        "result": {
+	            "originName": "UpdateOutput",
+	            "isGen": false,
+	            "name": "UpdateOutput"
+	        }
+	    },
+	    "value": "brandUpdateName(id: ID!, name: String!): UpdateOutput"
+	}, {
+	    "comments": "# ### Load test users to firebase.\n    #",
+	    "details": {
+	        "name": "dataCreateUsers",
+	        "metadata": null,
+	        "params": "nbr: Int!",
+	        "result": {
+	            "originName": "DataImportMessage",
+	            "isGen": false,
+	            "name": "DataImportMessage"
+	        }
+	    },
+	    "value": "dataCreateUsers(nbr: Int!): DataImportMessage"
+	}, {
+	    "comments": "# ### Load test brands to firebase.\n    #",
+	    "details": {
+	        "name": "dataCreateBrands",
+	        "metadata": null,
+	        "params": "nbr: Int!",
+	        "result": {
+	            "originName": "DataImportMessage",
+	            "isGen": false,
+	            "name": "DataImportMessage"
+	        }
+	    },
+	    "value": "dataCreateBrands(nbr: Int!): DataImportMessage"
+	}, {
+	    "comments": "# ### Load test posts to firebase.\n    #",
+	    "details": {
+	        "name": "dataCreatePosts",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "DataImportMessage",
+	            "isGen": false,
+	            "name": "DataImportMessage"
+	        }
+	    },
+	    "value": "dataCreatePosts: DataImportMessage"
+	}, {
+	    "comments": "# ### Add test ratings to posts in firebase.\n    #",
+	    "details": {
+	        "name": "dataRatePosts",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "DataImportMessage",
+	            "isGen": false,
+	            "name": "DataImportMessage"
+	        }
+	    },
+	    "value": "dataRatePosts: DataImportMessage"
+	}, {
+	    "comments": "# ### Sync ratings with posts in firebase.\n    #",
+	    "details": {
+	        "name": "dataSyncPostRatings",
+	        "metadata": null,
+	        "params": "first: Int!, cursor: ID",
+	        "result": {
+	            "originName": "DataImportMessage",
+	            "isGen": false,
+	            "name": "DataImportMessage"
+	        }
+	    },
+	    "value": "dataSyncPostRatings(first: Int!, cursor: ID): DataImportMessage"
+	}, {
+	    "comments": "# ### Creates a new post.\n    #\n    # _Arguments_\n    # - **input**: New post's details",
+	    "details": {
+	        "name": "postWrite",
+	        "metadata": null,
+	        "params": "input: PostInput",
+	        "result": {
+	            "originName": "Post",
+	            "isGen": false,
+	            "name": "Post"
+	        }
+	    },
+	    "value": "postWrite(input: PostInput): Post"
+	}, {
+	    "comments": "# ### Creates a new post.\n    #\n    # _Arguments_\n    # - **input**: New user's details",
+	    "details": {
+	        "name": "userCreate",
+	        "metadata": null,
+	        "params": "input: UserInput",
+	        "result": {
+	            "originName": "User",
+	            "isGen": false,
+	            "name": "User"
+	        }
+	    },
+	    "value": "userCreate(input: UserInput): User"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PagingInput",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "first",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Int",
+	            "isGen": false,
+	            "name": "Int"
+	        }
+	    },
+	    "value": "first: Int"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "BrandQueryWith",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "id: ID"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "name: String"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "BrandQueryOrderBy",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "field",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "BrandSort",
+	            "isGen": false,
+	            "name": "BrandSort"
+	        }
+	    },
+	    "value": "field: BrandSort"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "asc",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Boolean",
+	            "isGen": false,
+	            "name": "Boolean"
+	        }
+	    },
+	    "value": "asc: Boolean"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "NewBrandInput",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "type",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "BrandType!",
+	            "isGen": false,
+	            "name": "BrandType!"
+	        }
+	    },
+	    "value": "type: BrandType!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "website",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "website: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "twitter",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "twitter: String"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PostInput",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "brandId",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID!",
+	            "isGen": false,
+	            "name": "ID!"
+	        }
+	    },
+	    "value": "brandId: ID!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "name",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "name: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "text",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "text: String"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PostQueryAbout",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "brandId",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "brandId: ID"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "brandType",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "BrandType",
+	            "isGen": false,
+	            "name": "BrandType"
+	        }
+	    },
+	    "value": "brandType: BrandType"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PostQueryWhere",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "authorId",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "authorId: ID"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "rating",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating",
+	            "isGen": false,
+	            "name": "PostRating"
+	        }
+	    },
+	    "value": "rating: PostRating"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PostUserQueryAction",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "rated",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating",
+	            "isGen": false,
+	            "name": "PostRating"
+	        }
+	    },
+	    "value": "rated: PostRating"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "PostUserQueryOrderBy",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "date",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "OrderByEnum",
+	            "isGen": false,
+	            "name": "OrderByEnum"
+	        }
+	    },
+	    "value": "date: OrderByEnum"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "UserPostQueryAction",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "rated",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "PostRating",
+	            "isGen": false,
+	            "name": "PostRating"
+	        }
+	    },
+	    "value": "rated: PostRating"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "created",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Boolean",
+	            "isGen": false,
+	            "name": "Boolean"
+	        }
+	    },
+	    "value": "created: Boolean"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "UserPostQueryOrderBy",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "date",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "OrderByEnum",
+	            "isGen": false,
+	            "name": "OrderByEnum"
+	        }
+	    },
+	    "value": "date: OrderByEnum"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "UserQueryWith",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "id",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "id: ID"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "username",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "username: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "firstname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "firstname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "lastname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "lastname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "email",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "email: String"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "UserQueryOrderBy",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "field",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "UserSort",
+	            "isGen": false,
+	            "name": "UserSort"
+	        }
+	    },
+	    "value": "field: UserSort"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "asc",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "Boolean",
+	            "isGen": false,
+	            "name": "Boolean"
+	        }
+	    },
+	    "value": "asc: Boolean"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "INPUT",
+	"name": "UserInput",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "username",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String!",
+	            "isGen": false,
+	            "name": "String!"
+	        }
+	    },
+	    "value": "username: String!"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "firstname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "firstname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "lastname",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "lastname: String"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "email",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "String",
+	            "isGen": false,
+	            "name": "String"
+	        }
+	    },
+	    "value": "email: String"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "ENUM",
+	"name": "BrandSort",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "NAME",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "NAME"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "CREATIONDATE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "CREATIONDATE"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "ENUM",
+	"name": "BrandType",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "COMPANY",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "COMPANY"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "EVENT",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "EVENT"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "PERSON",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "PERSON"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "ORGANIZATION",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "ORGANIZATION"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "CAMPAIGN",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "CAMPAIGN"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "MOVIE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "MOVIE"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "ANIME",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "ANIME"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "CARTOON",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "CARTOON"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "MANGA",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "MANGA"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "PRODUCT",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "PRODUCT"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "SERVICE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "SERVICE"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "ENUM",
+	"name": "OrderByEnum",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "LATEST",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "LATEST"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "OLDEST",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "OLDEST"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "ENUM",
+	"name": "PostRating",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "LOVE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "LOVE"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "LIKE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "LIKE"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "NEUTRAL",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "NEUTRAL"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "DISLIKE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "DISLIKE"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "HATE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "HATE"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "ENUM",
+	"name": "UserSort",
+	"metadata": null,
+	"genericType": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "CREATIONDATE",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "CREATIONDATE"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "USERNAME",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "USERNAME"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "FIRSTNAME",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "FIRSTNAME"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "LASTNAME",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "LASTNAME"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "EMAIL",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "",
+	            "isGen": false,
+	            "name": ""
+	        }
+	    },
+	    "value": "EMAIL"
+	}],
+	"inherits": null,
+	"implements": null
+	}, {
+	"type": "TYPE",
+	"name": "PagedPost",
+	"implements": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": { "name": "data", "result": { "name": "[Post]" } },
+	    "value": "data: [Post]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"genericType": null
+	}, {
+	"type": "TYPE",
+	"name": "PagedUserWithPostRating",
+	"implements": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "data",
+	        "result": { "name": "[UserWithPostRating]" }
+	    },
+	    "value": "data: [UserWithPostRating]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"genericType": null
+	}, {
+	"type": "TYPE",
+	"name": "PagedPostUserRating",
+	"implements": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "data",
+	        "result": { "name": "[PostUserRating]" }
+	    },
+	    "value": "data: [PostUserRating]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"genericType": null
+	}, {
+	"type": "TYPE",
+	"name": "PagedBrand",
+	"implements": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "data",
+	        "result": { "name": "[Brand]" }
+	    },
+	    "value": "data: [Brand]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"genericType": null
+	}, {
+	"type": "TYPE",
+	"name": "PagedUser",
+	"implements": null,
+	"blockProps": [{
+	    "comments": "",
+	    "details": {
+	        "name": "data",
+	        "result": { "name": "[User]" }
+	    },
+	    "value": "data: [User]"
+	}, {
+	    "comments": "",
+	    "details": {
+	        "name": "cursor",
+	        "metadata": null,
+	        "params": null,
+	        "result": {
+	            "originName": "ID",
+	            "isGen": false,
+	            "name": "ID"
+	        }
+	    },
+	    "value": "cursor: ID"
+	}],
+	"genericType": null
+}]

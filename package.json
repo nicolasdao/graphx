@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/nicolasdao/graphx#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "mocha": "^3.4.2",

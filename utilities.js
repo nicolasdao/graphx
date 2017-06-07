@@ -13,7 +13,7 @@ const throwError = (v, msg) => v ? (() => {throw new Error(msg)})() : true;
 const isScalarType = type => type == 'Int' || type == 'Int!' || type == 'String' || type == 'String!' || type == 'Boolean' || type == 'Boolean!' || 
 	type == 'ID' || type == 'ID!' || type == 'Float' || type == 'Float!' || type == 'Enum' || type == 'Enum!';
 
-const getLinks = (edge) => chain(throwError(!edge, `Error in method 'getLinks': Argument 'edge' must exist.`))
+const getLink = (edge) => chain(throwError(!edge, `Error in method 'getLink': Argument 'edge' must exist.`))
 	.next(v => edge.trim())
 	.next(edge => ({ edge, firstChar: edge.trim().charAt(0), lastChar: edge.trim().charAt(edge.length-1) }))
 	.next(v => ({
@@ -24,23 +24,28 @@ const getLinks = (edge) => chain(throwError(!edge, `Error in method 'getLinks': 
 			? 'default' 
 			: chain((v.edge.split('').reverse().join('').match(/\)(.*?)\(/) || [null, ''])[1].split('').reverse().join('').trim()).next(x => x.indexOf('.') > 0 ? x.split('.')[1] : 'default').val(),
 		link: chain(v.edge.match(/(<-|-)\[(.*?)\](->|-)/) || [null, '', '', ''])
-			.next(v => ({ 
-				label: chain(v[2].trim()).next(v => v ? v : throwError(true, `Error in method 'getLinks': Failed to extract the link from edge '${v.edge}'`)).val(), 
-				direction: chain({ v1: v[1].trim(), v3: v[3].trim() }).next(v => 
-						(v.v1 == '<-' && v.v3 == '-') ? '<' :
-						(v.v1 == '-' && v.v3 == '->') ? '>' :
-						throwError(true, `Error in method 'getLinks': Failed to extract the link's direction from edge '${v.edge}'`)
-					).val()
+				.next(v => ({ 
+					label: chain(v[2].trim()).next(v => v ? v : throwError(true, `Error in method 'getLink': Failed to extract the link from edge '${v.edge}'`)).val(), 
+					direction: chain({ v1: v[1].trim(), v3: v[3].trim() }).next(v => 
+							(v.v1 == '<-' && v.v3 == '-') ? '<' :
+							(v.v1 == '-' && v.v3 == '->') ? '>' :
+							throwError(true, `Error in method 'getLink': Failed to extract the link's direction from edge '${v.edge}'`)
+						).val()
 
-			}))
-			.val()
+				}))
+				.val()
 	}))
 	.val();
+const log = (msg, name, transformFn) => chain(name ? `${name}: ${typeof(msg) != "object" ? msg : JSON.stringify(msg)}` : msg)
+	.next(msg => transformFn? console.log(transformFn(msg)) : console.log(msg))
+	.next(v => msg)
+	.val()
 
 module.exports = {
 	escapeGraphQlSchema,
 	chain,
 	throwError,
 	isScalarType,
-	getLinks
+	getLink,
+	log
 }
