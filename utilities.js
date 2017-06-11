@@ -9,11 +9,21 @@ const CR = '_cr_';
 const T = '_t_';
 const escapeGraphQlSchema = schema => schema.replace(/[\n\r]+/g, CR).replace(/[\t\r]+/g, T);
 const chain = value => ({ next: fn => chain(fn(value)), val: () => value });
+const set = (obj, prop, value, mutateFn) => 
+	!obj || !prop ? obj :
+	chain(typeof(prop) != "string" && prop.length > 0).next(isPropArray => isPropArray
+		? prop.reduce((acc, p, idx) => { obj[p] = value[idx]; return obj; }, obj)
+		: (() => { obj[prop] = value; return obj; })())
+	.next(updatedObj => {
+		if (mutateFn) mutateFn(updatedObj);
+		return updatedObj;
+	})
+	.val();
 const throwError = (v, msg) => v ? (() => {throw new Error(msg)})() : true;
 const isScalarType = type => type == 'Int' || type == 'Int!' || type == 'String' || type == 'String!' || type == 'Boolean' || type == 'Boolean!' || 
 	type == 'ID' || type == 'ID!' || type == 'Float' || type == 'Float!' || type == 'Enum' || type == 'Enum!';
 
-const getLink = (edge) => chain(throwError(!edge, `Error in method 'getLink': Argument 'edge' must exist.`))
+const getEdge = (edge) => chain(throwError(!edge, `Error in method 'getEdge': Argument 'edge' must exist.`))
 	.next(v => edge.trim())
 	.next(edge => ({ edge, firstChar: edge.trim().charAt(0), lastChar: edge.trim().charAt(edge.length-1) }))
 	.next(v => ({
@@ -23,21 +33,31 @@ const getLink = (edge) => chain(throwError(!edge, `Error in method 'getLink': Ar
 		rightnode: v.lastChar != ')' 
 			? 'default' 
 			: chain((v.edge.split('').reverse().join('').match(/\)(.*?)\(/) || [null, ''])[1].split('').reverse().join('').trim()).next(x => x.indexOf('.') > 0 ? x.split('.')[1] : 'default').val(),
-		link: chain(v.edge.match(/(<-|-)\[(.*?)\](->|-)/) || [null, '', '', ''])
+		relation: chain(v.edge.match(/(<-|-)\[(.*?)\](->|-)/) || [null, '', '', ''])
 				.next(v => ({ 
-					label: chain(v[2].trim()).next(v => v ? v : throwError(true, `Error in method 'getLink': Failed to extract the link from edge '${v.edge}'`)).val(), 
+					label: chain(v[2].trim()).next(v => v ? v : throwError(true, `Error in method 'getEdge': Failed to extract the relation from edge '${v.edge}'`)).val(), 
 					direction: chain({ v1: v[1].trim(), v3: v[3].trim() }).next(v => 
 							(v.v1 == '<-' && v.v3 == '-') ? '<' :
 							(v.v1 == '-' && v.v3 == '->') ? '>' :
-							throwError(true, `Error in method 'getLink': Failed to extract the link's direction from edge '${v.edge}'`)
+							throwError(true, `Error in method 'getEdge': Failed to extract the relation's direction from edge '${v.edge}'`)
 						).val()
 
 				}))
+				.next(v => ({ direction: v.direction, label: v.label, generate: compileRelationDef(v.label) }))
 				.val()
 	}))
 	.val();
+
+const compileRelationDef = (relation = '') => chain(relation.match(/([^']+?)=>/) 
+		// this relation is explicitely expressed as a string arrow function
+		? eval(relation) 
+		// this relation is not explicitly expressed as a string arrow function
+		: eval(`x => ${relation}`))
+	.next(fn => (leftnode, rightnode, args) => fn(leftnode, rightnode, args))
+	.val();
+
 const log = (msg, name, transformFn) => chain(name ? `${name}: ${typeof(msg) != "object" ? msg : JSON.stringify(msg)}` : msg)
-	.next(msg => transformFn? console.log(transformFn(msg)) : console.log(msg))
+	.next(v => transformFn ? console.log(chain(transformFn(msg)).next(v => name ? `${name}: ${v}` : v).val()) : console.log(v))
 	.next(v => msg)
 	.val()
 
@@ -46,6 +66,7 @@ module.exports = {
 	chain,
 	throwError,
 	isScalarType,
-	getLink,
-	log
+	getEdge,
+	log,
+	set
 }
