@@ -30,7 +30,7 @@ const {
   isNodeType,
   flattenNodes,
   getQueryFields
-} = require('../utilities');
+} = require('../../src/utilities');
 
 describe('utilities', () => 
   describe('#getEdge', () => 

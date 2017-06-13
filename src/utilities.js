@@ -5,28 +5,26 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const _ = require('lodash');
-const shortid = require('shortid');
-const CR = '_cr_';
-const T = '_t_';
+const _ = require('lodash')
+const shortid = require('shortid')
 //const escapeGraphQlSchema = schema => schema.replace(/[\n\r]+/g, CR).replace(/[\t\r]+/g, T);
-const chain = value => ({ next: fn => chain(fn(value)), val: () => value });
+const chain = value => ({ next: fn => chain(fn(value)), val: () => value })
 const set = (obj, prop, value, mutateFn) => 
 	!obj || !prop ? obj :
-	chain(typeof(prop) != "string" && prop.length > 0).next(isPropArray => isPropArray
-		? prop.reduce((acc, p, idx) => { obj[p] = value[idx]; return obj; }, obj)
-		: (() => { obj[prop] = value; return obj; })())
+	chain(typeof(prop) != 'string' && prop.length > 0).next(isPropArray => isPropArray
+		? prop.reduce((acc, p, idx) => { obj[p] = value[idx]; return obj }, obj)
+		: (() => { obj[prop] = value; return obj })())
 	.next(updatedObj => {
-		if (mutateFn) mutateFn(updatedObj);
-		return updatedObj;
+		if (mutateFn) mutateFn(updatedObj)
+		return updatedObj
 	})
-	.val();
-const throwError = (v, msg) => v ? (() => {throw new Error(msg)})() : true;
+	.val()
+const throwError = (v, msg) => v ? (() => {throw new Error(msg)})() : true
 const isScalarType = type => type == 'Int' || type == 'Int!' || type == 'String' || type == 'String!' || type == 'Boolean' || type == 'Boolean!' || 
-	type == 'ID' || type == 'ID!' || type == 'Float' || type == 'Float!' || type == 'Enum' || type == 'Enum!';
+	type == 'ID' || type == 'ID!' || type == 'Float' || type == 'Float!' || type == 'Enum' || type == 'Enum!'
 
-const getEdge = (edge) => chain(throwError(!edge, `Error in method 'getEdge': Argument 'edge' must exist.`))
-	.next(v => edge.trim())
+const getEdge = (edge) => chain(throwError(!edge, 'Error in method \'getEdge\': Argument \'edge\' must exist.'))
+	.next(() => edge.trim())
 	.next(edge => ({ edge, firstChar: edge.trim().charAt(0), lastChar: edge.trim().charAt(edge.length-1) }))
 	.next(v => ({
 		leftnode: v.firstChar != '(' 
@@ -48,7 +46,7 @@ const getEdge = (edge) => chain(throwError(!edge, `Error in method 'getEdge': Ar
 				.next(v => ({ direction: v.direction, label: v.label, generate: compileRelationDef(v.label) }))
 				.val()
 	}))
-	.val();
+	.val()
 
 const compileRelationDef = (relation = '') => chain(relation.match(/([^']+?)=>/) 
 		// this relation is explicitely expressed as a string arrow function
@@ -56,16 +54,18 @@ const compileRelationDef = (relation = '') => chain(relation.match(/([^']+?)=>/)
 		// this relation is not explicitly expressed as a string arrow function
 		: eval(`x => ${relation}`))
 	.next(fn => (leftnode, rightnode, args) => fn(leftnode, rightnode, args))
-	.val();
-
-const log = (msg, name, transformFn) => chain(name ? `${name}: ${typeof(msg) != "object" ? msg : JSON.stringify(msg)}` : msg)
-	.next(v => transformFn ? console.log(chain(transformFn(msg)).next(v => name ? `${name}: ${v}` : v).val()) : console.log(v))
-	.next(v => msg)
 	.val()
 
-const newShortId = () => shortid.generate().replace(/-/g, 'r').replace(/_/g, '9');
+const log = (msg, name, transformFn) => chain(name ? `${name}: ${typeof(msg) != 'object' ? msg : JSON.stringify(msg)}` : msg)
+	/*eslint-disable */
+	.next(v => transformFn ? console.log(chain(transformFn(msg)).next(v => name ? `${name}: ${v}` : v).val()) : console.log(v))
+	/*eslint-enable */
+	.next(() => msg)
+	.val()
+
+const newShortId = () => shortid.generate().replace(/-/g, 'r').replace(/_/g, '9')
 const removeMultiSpaces = s => s.replace(/ +(?= )/g,'')
-const escapeGraphQlSchema = (sch, cr, t) => sch.replace(/[\n\r]+/g, '_cr_').replace(/[\t\r]+/g, ' ')
+const escapeGraphQlSchema = sch => sch.replace(/[\n\r]+/g, '_cr_').replace(/[\t\r]+/g, ' ')
 
 const astParse = (query = '') => chain(escapeArguments(cleanAndFormatQuery(query))).next(({ query, argBlocks }) => 
 		chain(blockify(query)).next(({ query, blockAliases }) => query
@@ -85,8 +85,8 @@ const astParse = (query = '') => chain(escapeArguments(cleanAndFormatQuery(query
  */
 const cleanAndFormatQuery = (query = '') => 
 	chain(removeMultiSpaces(escapeGraphQlSchema(query).replace(/#(.*?)_cr_/g, '').replace(/(_cr_|,)/g, ' ')).trim()).next(q => 
-		q.indexOf("query {") == 0 ? q.replace(/query /, '') :
-		q.indexOf("mutation {") == 0 ? throwError(true, `Error in method 'cleanAndFormatQuery': Cannot process mutations.`) :
+		q.indexOf('query {') == 0 ? q.replace(/query /, '') :
+		q.indexOf('mutation {') == 0 ? throwError(true, 'Error in method \'cleanAndFormatQuery\': Cannot process mutations.') :
 		q
 	).val()
 
@@ -104,7 +104,7 @@ const escapeArguments = (query = '') => chain((query || '').match(/\((.*?)\)/g))
 		.next(alias => 
 			chain(jsonify(arg)) // parse the arg into a JSON obj
 			.next(argObj => q.argBlocks.push({ alias, value: argObj }))  	// store that new JSON obj
-			.next(v => set(q, 'query', q.query.replace(arg, alias))).val()) // Replace the arg with an alias
+			.next(() => set(q, 'query', q.query.replace(arg, alias))).val()) // Replace the arg with an alias
 		.val(), 
 		{ query, argBlocks: [] })
 	: { query, argBlocks: null })
@@ -132,7 +132,7 @@ const jsonify = arg => !arg ? arg : chain((arg || '').replace(/^\(/g, '{').repla
 	.next(({ arg, valueAliases }) => ({ arg: escapeEnumValues(arg), valueAliases })) // Makes sure that GraphQL enum values are wrapped between "".
 	.next(({ arg, valueAliases }) => ({ arg: arg.replace(/(\s*?):/g, ':'), valueAliases})) // Remove any space between property name and :
 	.next(({ arg, valueAliases }) => ({ arg: arg.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2": '), valueAliases})) // Make sure all props are wrapped between "" to comply to JSON
-	.next(({ arg, valueAliases }) => ({ arg: removeMultiSpaces(arg).replace(/{ "/g, "{\"").replace(/, "/g, ",\""), valueAliases})) // Removes useless spaces.
+	.next(({ arg, valueAliases }) => ({ arg: removeMultiSpaces(arg).replace(/{ "/g, '{"').replace(/, "/g, ',"'), valueAliases})) // Removes useless spaces.
 	.next(({ arg, valueAliases }) => ({ arg, props: arg.match(/[^{,](\s*?)"([^"\s]*?)"(\s*?):/g), valueAliases})) // Match the props that need to be prepended with a comma.
 	.next(({ arg, props, valueAliases }) => props 
 		? 	chain(props.map(prop => prop.split(' ').reverse()[0]).reduce((a, prop) => 
@@ -144,7 +144,7 @@ const jsonify = arg => !arg ? arg : chain((arg || '').replace(/^\(/g, '{').repla
 			.val()
 		: 	{ arg, valueAliases })
 	.next(({ arg, valueAliases }) => valueAliases 
-		? valueAliases.reduce((a,v) => a.replace(v.alias, v.value.replace(/'/g, "\"")), arg)
+		? valueAliases.reduce((a,v) => a.replace(v.alias, v.value.replace(/'/g, '"')), arg)
 		: arg)
 	.next(arg => JSON.parse(arg))
 	.val()
@@ -168,7 +168,7 @@ const escapeEnumValues = pseudoJsonStr => !pseudoJsonStr ? pseudoJsonStr : chain
 				: { origin: y.origin, trimmed: y.trimmed, isEnum: false })
 			.val())
 		.map(x => x.isEnum ? x.trimmed.replace(x.enum, `"${x.enum}"`) : x.origin)
-		.join(":")
+		.join(':')
 	).val()
 
 /**
@@ -185,9 +185,9 @@ const blockify = (query = '', blockAliases = []) => chain(query.match(/{([^{]*?)
 		? 	chain(blocks.reduce((q, block) => 
 				chain(`__${newShortId()}__`)
 				.next(alias => {
-					q.blockAliases.push({ alias, block: block.replace(/({|})/g, '').trim() });
-					q.query = q.query.replace(block, alias);
-					return q;
+					q.blockAliases.push({ alias, block: block.replace(/({|})/g, '').trim() })
+					q.query = q.query.replace(block, alias)
+					return q
 				})
 				.val(), { query, blockAliases: blockAliases }))
 			.next(v => blockify(v.query, v.blockAliases))
@@ -217,10 +217,10 @@ const getBlockProperties = (blockifiedLine = '', blockAliases = [], argBlocks = 
 	getEscapedProperties(blockifiedLine).map(p => 
 		p.indexOf('__') > 0 || p.indexOf('--') > 0
 		? 	chain(replaceBlocksAndArgs(p, blockAliases, argBlocks)).next(x => ({ 
-		 		name: x.name, 
-		 		args: x.args,
-		 		properties: _.flatten(_.toArray(_(x.properties).map(y => getBlockProperties(y, blockAliases, argBlocks))))
-		 	})).val()
+				name: x.name, 
+				args: x.args,
+				properties: _.flatten(_.toArray(_(x.properties).map(y => getBlockProperties(y, blockAliases, argBlocks))))
+			})).val()
 		: 	{ name: p, args: null, properties: null })
 
 /**
@@ -272,7 +272,7 @@ const replaceBlocksAndArgs = (prop = '', blockAliases, argBlocks) =>
  * @param  {Object} metadata SchemaAST's metadata 
  * @return {String}          SchemaAST's metadata's body
  */
-const getEdgeDesc = metadata => (!metadata || metadata.name != "edge") ? null : metadata.body.replace(/(^\(|\)$)/g, '')
+const getEdgeDesc = metadata => (!metadata || metadata.name != 'edge') ? null : metadata.body.replace(/(^\(|\)$)/g, '')
 
 /**
  * Check whether or not the 'type' that is defined in the 'schemaAST' is of type node.
@@ -281,17 +281,17 @@ const getEdgeDesc = metadata => (!metadata || metadata.name != "edge") ? null : 
  * @param  {Array} 	  schemaAST Array of schema objects
  * @return {Boolean}           	Result
  */
-const GRAPHQLSCALARTYPES = { "ID": true, "String": true, "Float": true, "Int": true  };
+const GRAPHQLSCALARTYPES = { 'ID': true, 'String': true, 'Float': true, 'Int': true  }
 const isNodeType = (type, schemaAST) => 
-	chain(throwError(!type, `Error in method 'isNodeType': Argument 'type' is required.`))
-	.next(v => type.replace(/!$/, ''))
+	chain(throwError(!type, 'Error in method \'isNodeType\': Argument \'type\' is required.'))
+	.next(() => type.replace(/!$/, ''))
 	.next(type => (type.match(/^\[(.*?)\]$/) || [null, type])[1])
 	.next(type => GRAPHQLSCALARTYPES[type] 
 		? false 
 		: 	chain({ type, typeAST: schemaAST.find(x => x.name == type)})
 			.next(({type, typeAST}) => !typeAST 
 				? throwError(true, `Error in method 'isNodeType': Type '${type}' does not exist in the GraphQL schema.`)
-				: (typeAST.type == "TYPE" && typeAST.metadata && typeAST.metadata.name == "node") ? true : false)
+				: (typeAST.type == 'TYPE' && typeAST.metadata && typeAST.metadata.name == 'node') ? true : false)
 			.val())
 	.val()
 
@@ -299,8 +299,8 @@ const flattenNodes = (graphqlnodes, predecessor, seedCounter = 0) => _(graphqlno
 		chain(Object.assign({ _position: acc.counter }, n))
 		.next(node => {
 			if (predecessor)
-				acc.links.push({ predecessor: predecessor._position, successor: node._position, direction: (node._edge || {}).direction, name: (node._edge || {}).name });
-			return node;
+				acc.links.push({ predecessor: predecessor._position, successor: node._position, direction: (node._edge || {}).direction, name: (node._edge || {}).name })
+			return node
 		})
 		.next(node => node._successors && node._successors.length > 0 
 			// process predecessors.
@@ -332,7 +332,7 @@ const getQueryFields = (queryProp, parentTypeAST, schemaAST) =>
 				properties: queryProp.properties && queryProp.properties.length > 0
 					? 	chain(schemaProp.details.result.name)
 						.next(typename => (typename.match(/^\[(.*?)\]$/) || [null, typename])[1])
-						.next(typename => schemaAST.find(x => x.type == "TYPE" && x.name == typename))
+						.next(typename => schemaAST.find(x => x.type == 'TYPE' && x.name == typename))
 						.next(parentTypeAST => parentTypeAST 
 							? queryProp.properties.map(queryProp => getQueryFields(queryProp, parentTypeAST, schemaAST))
 							: throwError(true, `Error in method 'getQueryFields': Cannot find type '${schemaProp.details.result.name}' in the GraphQL Schema.`))

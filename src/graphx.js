@@ -5,33 +5,19 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree.
 */
-const _ = require('lodash');
-const shortid = require('shortid');
-const { getSchemaAST } = require('graphql-s2s');
+const _ = require('lodash')
+const shortid = require('shortid')
+const { getSchemaAST } = require('graphql-s2s').graphqls2s
 const {
 	chain,
 	throwError,
 	isScalarType,
 	getEdge,
 	log,
-	set,
-	newShortId,
-	removeMultiSpaces,
-	escapeGraphQlSchema,
 	astParse,
-	cleanAndFormatQuery,
-	escapeArguments,
-	jsonify,
-	escapeEnumValues,
-	blockify,
-	getBlockProperties,
-	getEscapedProperties,
-	replaceBlocksAndArgs,
-	getEdgeDesc,
-	isNodeType,
 	flattenNodes,
 	getQueryFields
-} = require('./utilities');
+} = require('./utilities')
 
 /**
  * Parses a string GraphQL query to an AST enriched with metadata from the GraphQL Schema AST.
@@ -41,12 +27,12 @@ const {
  * @return {Array}            	Query AST.
  */
 const getQueryAST = (query, schemaAST) => 
-	chain(throwError(!query, `Error in method 'getQueryAST': Parameter 'query' is required.`))
-	.next(v => _(schemaAST))
+	chain(throwError(!query, 'Error in method \'getQueryAST\': Parameter \'query\' is required.'))
+	.next(() => _(schemaAST))
 	.next(schemaAST => 
-		chain(schemaAST.find(x => x.type == "TYPE" && x.name == "Query"))
+		chain(schemaAST.find(x => x.type == 'TYPE' && x.name == 'Query'))
 		.next(queryType => !queryType
-			? throwError(true, `Error in method 'getQueryAST': The GraphQL schema does not define a 'Query' type.`)
+			? throwError(log(!queryType, 'QUERY TYPE'), 'Error in method \'getQueryAST\': The GraphQL schema does not define a \'Query\' type.')
 			: chain(astParse(query)).next(ast => ast
 				? ast.map(prop => getQueryFields(prop, queryType, schemaAST))
 				: []).val())
@@ -63,18 +49,18 @@ const getQueryAST = (query, schemaAST) =>
  * @return {[type]}                	[description]
  */
 const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) => 
-	(!fieldDef || !fieldValue || typeof(fieldValue) != "object") ? [] :
+	(!fieldDef || !fieldValue || typeof(fieldValue) != 'object') ? [] :
 	fieldValue.length != undefined
 		? 	_.flatten(fieldValue.map(fv => extractNodes(fieldDef, fv, predecessorEdge)))
 		: 	chain(_(fieldDef.properties).reduce((a, p) => 
-				isScalarType(p.type) ? chain(a.scalarTypes.push(p)).next(v => a).val() :
-				p.edge ? chain(a.nonScalarTypesWithEdges.push(p)).next(v => a).val() :
-				chain(a.nonScalarTypes.push(p)).next(v => a).val(), // I'm storing the props with edges, but so far, I don't see any usage for it. Maybe later.
+				isScalarType(p.type) ? chain(a.scalarTypes.push(p)).next(() => a).val() :
+				p.edge ? chain(a.nonScalarTypesWithEdges.push(p)).next(() => a).val() :
+				chain(a.nonScalarTypes.push(p)).next(() => a).val(), // I'm storing the props with edges, but so far, I don't see any usage for it. Maybe later.
 				{ scalarTypes: [], nonScalarTypes: [], nonScalarTypesWithEdges: []}))
-		  	.next(props =>
+			.next(props =>
 				//e.g. "p": posts, "fieldValue[p.name]": { data:[...], cursor: ... }, "getEdge(p.edge)": { leftnode: "default", rightnode: "data",edge: { label: 'ABOUT', direction: '<' } }
 				chain(_.flatten(_.toArray(_(props.nonScalarTypesWithEdges).map(p => chain(getEdge(p.edge)).next(edge => 
-					edge.rightnode == "default"
+					edge.rightnode == 'default'
 					// that means that the current property 'p' is supposed to be the successor
 					?	extractNodes(p, fieldValue[p.name], edge, fieldValue)
 					// that means that the current property 'p' is not the immediate successor, but instead a property of 'p'
@@ -86,7 +72,7 @@ const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) =
 					fieldDef.isNode
 					// CREATE NODE
 					?	[_(props.scalarTypes).reduce((a, p) => 
-							{ a[p.name] = fieldValue[p.name]; return a; }, 
+							{ a[p.name] = fieldValue[p.name]; return a }, 
 							{ 
 								_node: fieldDef.type.replace(/(\[|\])/g,''), // Describe the type of node
 								_uuid: shortid.generate(), // uniquely identify that node
@@ -100,7 +86,7 @@ const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) =
 				)
 				//.next(node => log(node, "NODE"))
 				.val())
-		  	.val();
+			.val()
 
 /**
  * Formats the ouput of the nodes extracted from the method 'extractNodes' into a D3 array.
@@ -113,17 +99,17 @@ const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) =
 const d3Flatten = graphqlnodes => chain(flattenNodes(graphqlnodes))
 	.next(v => ({ 
 		nodes: _.toArray(_(v.nodes).sortBy(x => x._position).map(x => { 
-			delete x._successors;
-			delete x._edge; 
-			return x; 
+			delete x._successors
+			delete x._edge 
+			return x 
 		})), 
 		edges: _.toArray(_(v.links).sortBy(x => x.predecessor).map(x => ({ 
-			source: x.direction == ">" ? x.predecessor : x.successor,
-			target: x.direction == ">" ? x.successor : x.predecessor,
+			source: x.direction == '>' ? x.predecessor : x.successor,
+			target: x.direction == '>' ? x.successor : x.predecessor,
 			name: x.name
 		}))) 
 	}))
-	.val();
+	.val()
 
 /**
  * Format & enrich the GraphQL response so it contains relations that can be visualized in a D3 app.
@@ -136,11 +122,11 @@ const d3Flatten = graphqlnodes => chain(flattenNodes(graphqlnodes))
  * @return {Array} 			result.edges    Array of all edges between 'nodes'. 
  */
 const compileGraphDataToD3 = (query = '', resp, schemaAST) => 
-	chain(throwError(!schemaAST, `Error in method 'compileGraphDataToD3': Parameter 'schemaAST' is required.`))
-	.next(v => throwError(!resp, `Error in method 'compileGraphDataToD3': Parameter 'resp' is required.`))
-	.next(v => throwError(!resp.data, `Error in method 'compileGraphDataToD3': Parameter 'resp.data' is required.`))
-	.next(v => throwError(!query, `Error in method 'compileGraphDataToD3': Parameter 'query' is required.`))
-	.next(v => typeof(schemaAST) == "string" ? getSchemaAST(schemaAST) : schemaAST)
+	chain(throwError(!schemaAST, 'Error in method \'compileGraphDataToD3\': Parameter \'schemaAST\' is required.'))
+	.next(() => throwError(!resp, 'Error in method \'compileGraphDataToD3\': Parameter \'resp\' is required.'))
+	.next(() => throwError(!resp.data, 'Error in method \'compileGraphDataToD3\': Parameter \'resp.data\' is required.'))
+	.next(() => throwError(!query, 'Error in method \'compileGraphDataToD3\': Parameter \'query\' is required.'))
+	.next(() => typeof(schemaAST) == 'string' ? getSchemaAST(schemaAST) : schemaAST)
 	.next(schemaAST => getQueryAST(query, schemaAST))
 	.next(queryAST => queryAST && queryAST.length > 0 
 		? 	chain(_.flatten(_.toArray(_(queryAST)
@@ -152,12 +138,17 @@ const compileGraphDataToD3 = (query = '', resp, schemaAST) =>
 		: 	throwError(true, `Error in method 'compileGraphDataToD3': Query '${query}' failed to be parsed to a valid AST.`))
 	.val()
 
-module.exports = {
+const graphx = {
 	extractNodes,
 	d3Flatten,
 	getQueryAST,
 	compileGraphDataToD3
 }
+
+if (typeof window != 'undefined')  
+	window.graphx = graphx
+
+module.exports.graphx = graphx
 
 
 
