@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0-alpha.0"></a>
+# [0.2.0-alpha.0](https://github.com/nicolasdao/graphx/compare/v0.1.1-alpha.0...v0.2.0-alpha.0) (2017-06-15)
+
+
+### Features
+
+* Add a new coalesce feature that allows to combine nodes based on their identity + Add a new object called D3Obj that support classifiers ([c6f2bc9](https://github.com/nicolasdao/graphx/commit/c6f2bc9))
+
+
+
 <a name="0.1.1-alpha.0"></a>
 ## [0.1.1-alpha.0](https://github.com/nicolasdao/graphx/compare/v0.1.0...v0.1.1-alpha.0) (2017-06-13)
 
