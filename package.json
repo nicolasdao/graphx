@@ -4,7 +4,8 @@
   "description": "Visualize and analyse GraphQL query results in a true Graph.",
   "main": "./lib/graphx.min.js",
   "scripts": {
-    "test": "mocha ./test/node/*.js",
+    "test-dev": "MOCHA_ENV=dev mocha ./test/node/*.js",
+    "test-prod": "mocha ./test/node/*.js",
     "release": "standard-version",
     "build": "WEBPACK_ENV=build webpack",
     "dev": "WEBPACK_ENV=dev webpack",

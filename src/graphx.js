@@ -14,6 +14,7 @@ const {
 	isScalarType,
 	getEdge,
 	log,
+	set,
 	astParse,
 	flattenNodes,
 	getQueryFields
@@ -46,7 +47,12 @@ const getQueryAST = (query, schemaAST) =>
  * @param  {Object} fieldDef        [description]
  * @param  {Object} fieldValue      [description]
  * @param  {Object} predecessorEdge [description]
- * @return {[type]}                	[description]
+ * @return {Array}                	e.g. [{
+ *                                      	_node: 'Brand', 
+ *                                      	_uuid: 'dcwj379', 
+ *                                      	_edge: null,
+ *                                      	_successors:[{_node: 'Post', _uuid: 'cken863', _edge: { name: 'ABOUT', direction: < }, _successors:[]}] 
+ *                                      }]
  */
 const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) => 
 	(!fieldDef || !fieldValue || typeof(fieldValue) != 'object') ? [] :
@@ -89,6 +95,49 @@ const extractNodes = (fieldDef, fieldValue, predecessorEdge = {}, predecessor) =
 			.val()
 
 /**
+ * D3Obj constructor
+ * 
+ * @param {Array} nodes 
+ * @param {Array} edges 
+ */
+const D3Obj = function (nodes, edges) {
+	this.nodes = nodes
+	this.edges = edges
+	const _createClasses = {}
+	const _classifiers = {}
+	const _findClassFns = {}
+	this.addClassifier = (name, createClasses, classMatch) => { 
+		try {
+			const classes = createClasses(this.nodes)
+			if (classes != undefined && classes.length == undefined)
+				throw new Error(`The 'createClasses' function must return an Array. Current created type is '${typeof(classes)}'.`)
+			_classifiers[name] = _(classes) 
+			_findClassFns[name] = classMatch
+			_createClasses[name] = createClasses
+			return this
+		}
+		catch(err) {
+			throw new Error(`Error in method 'D3Obj.addClassifier': ${JSON.stringify(err)}`)
+		}
+	}
+	this.findClass = (node, classifierName) => {
+		try { 
+			const classes = _classifiers[classifierName]
+			if (classes == undefined)
+				throw new Error(`Classifier with name '${classifierName}' does not exist.`)
+			return classes.find(c => _findClassFns[classifierName](node, c))
+		}
+		catch(err) {
+			throw new Error(`Error in method 'D3Obj.findClass': ${JSON.stringify(err)}`)
+		}
+	}
+	this.newWithSameClassifier = (nodes, edges) => 
+		Object.keys(_createClasses).reduce(
+			(graph, classifierName) => graph.addClassifier(classifierName, _createClasses[classifierName], _findClassFns[classifierName])
+			,new D3Obj(nodes, edges))
+}
+
+/**
  * Formats the ouput of the nodes extracted from the method 'extractNodes' into a D3 array.
  * 
  * @param  {Array} 	graphqlnodes 	Nodes from 'extractNodes'
@@ -107,9 +156,53 @@ const d3Flatten = graphqlnodes => chain(flattenNodes(graphqlnodes))
 			source: x.direction == '>' ? x.predecessor : x.successor,
 			target: x.direction == '>' ? x.successor : x.predecessor,
 			name: x.name
-		}))) 
+		})))
 	}))
+	.next(v => new D3Obj(v.nodes, v.edges))
 	.val()
+
+/**
+ * Coalesces nodes based on some rules. This method will at max decrease the number of nodes, but will always
+ * leave the number of edges unchanged, unless the exact same couple existed more than once in the original graph.
+ * 
+ * @param  {Object} 		graph 			Previous D3 graph that has either been generated from 'compileGraphDataToD3' or 'd3Flatten'
+ * @param  {Array} 			graph.nodes  	e.g. [{ id:1, _node: 'Brand' }, { id:2, _node: 'Brand' }, { id:1, _node: 'Brand' }]
+ * @param  {Array} 			graph.edges  	e.g. [{ source:0, target:1 }, { source:0, target:2 }, { source:0, target:3 }]
+ * @param  {Function|Array} rules		 	e.g. (a,b) => a.id == b.id this rule will treat all nodes with the same id as the same node. 
+ *                                   		'rules' accepts either a 2-arity function or an array of 2-arity functions.
+ * @return {Object}       	newgraph
+ * @return {Object}       	newgraph.nodes 	Possibly less nodes
+ * @return {Object}       	newgraph.edges 	The exact same number of edges unless the exact same couple existed more than once in 
+ *                                         	the original graph.
+ */
+const coalesceD3nodes = (graph, rules) => !rules || rules.length == 0 || !graph || !graph.nodes || !graph.nodes.length ? graph :
+	typeof(rules) != 'function' && rules.length > 0 && _(rules).some(r => typeof(r) != 'function') ? throwError(true, 'Error in method \'coalesceD3nodes\': The \'rules\' argument contains elements that are not functions.') :
+	!rules.length && typeof(rules) != 'function' ? throwError(true, 'Error in method \'coalesceD3nodes\': The \'rules\' argument is neither a function nor an array of functions.') :
+	chain(typeof(rules) != 'function'  ? rules : [rules]).val().reduce((seedGraph, rule) => chain(seedGraph.nodes.reduce((a, b) => a[b._position]
+		// this node has alredy been processed
+		?	a 
+		// this node has not been processed yet
+		:	chain(a.originNodes.filter(node => rule(node, b))) // find nodes identical to b
+			.next(duplicates => duplicates.size() > 0 ? _.toArray(duplicates) : [b]) // In case the current node does not match the merging rule, we still need to preserve it
+			.next(duplicates => ({ 
+				duplicates,
+				acc: duplicates.reduce((acc, dup) => set(acc, dup._position || '0', { masterPos: b._position, newPos: acc.counter }), a)
+			}))
+			.next(({ duplicates, acc }) => 
+				chain(acc.counter)
+				.next(counter => set(acc, 'counter', counter + 1, x => x.nodes.push(set(Object.assign({}, b), ['_position', '_slavedPos'], [counter, duplicates.map(y => y._position)]))))
+				.val())
+			.val()
+			, { originNodes: _(seedGraph.nodes), nodes:[], counter: 0 }))
+	.next(mergedData => mergedData.nodes.reduce(
+		(a, node) => 
+			chain(_.flatten(node._slavedPos.map(oldPos => _.toArray(a.originEdges.filter(x => x.source == oldPos)
+				.map(edge => ({ source: node._position, name: edge.name, target: mergedData[edge.target].newPos }))))))
+			.next(edges => chain(delete node._slavedPos).next(() => set(a, 'edges', a.edges.concat(edges), x => x.nodes.push(node))).val())
+			.val()
+		,{ nodes:[], edges:[], originEdges: _(seedGraph.edges) }))
+	.next(newGraph => seedGraph.newWithSameClassifier(newGraph.nodes, newGraph.edges))
+	.val(), graph)
 
 /**
  * Format & enrich the GraphQL response so it contains relations that can be visualized in a D3 app.
@@ -138,11 +231,15 @@ const compileGraphDataToD3 = (query = '', resp, schemaAST) =>
 		: 	throwError(true, `Error in method 'compileGraphDataToD3': Query '${query}' failed to be parsed to a valid AST.`))
 	.val()
 
+
+
 const graphx = {
 	extractNodes,
 	d3Flatten,
 	getQueryAST,
-	compileGraphDataToD3
+	compileGraphDataToD3,
+	coalesceD3nodes,
+	D3Obj
 }
 
 if (typeof window != 'undefined')  

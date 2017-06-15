@@ -7,12 +7,20 @@
 */ 
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+
+const copyright = 
+`Copyright (c) 2017, Neap Pty Ltd.
+All rights reserved.
+ 
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.`
 
 const env = process.env.WEBPACK_ENV;
 const outputfilename = "graphx";
 const { plugins, outputfile } = env == "build" 
-    ? { plugins: [new UglifyJSPlugin()], outputfile: `${outputfilename}.min.js` } 
-    : { plugins: [], outputfile: `${outputfilename}.js` } 
+    ? { plugins: [new UglifyJSPlugin(), new webpack.BannerPlugin(copyright)], outputfile: `${outputfilename}.min.js` } 
+    : { plugins: [new webpack.BannerPlugin(copyright)], outputfile: `${outputfilename}.js` } 
 
 module.exports = {
     entry: [
